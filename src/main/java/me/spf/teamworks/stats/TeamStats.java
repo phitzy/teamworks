@@ -1,19 +1,19 @@
 package me.spf.teamworks.stats;
 
+import me.spf.teamworks.team.Team;
 import me.spf.teamworks.team.TeamName;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public abstract class TeamStats {
+public final class TeamStats {
 
     private int money;
     private int totalMembers;
-    private List<Player> playerList;
-    private TeamName teamName;
 
-    public TeamStats(String name) {
+    private int teamScore;
 
+    public TeamStats() {
     }
 
     public int getMoney() {
@@ -30,13 +30,5 @@ public abstract class TeamStats {
 
     public void setTotalMembers(int totalMembers) {
         this.totalMembers = totalMembers;
-    }
-
-    public List<Player> getPlayerList() {
-        return playerList;
-    }
-
-    public TeamName getTeamName() {
-        return teamName;
     }
 }

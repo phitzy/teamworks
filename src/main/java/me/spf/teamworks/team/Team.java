@@ -1,5 +1,6 @@
 package me.spf.teamworks.team;
 
+import me.spf.teamworks.stats.TeamStats;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -9,23 +10,27 @@ public class Team {
     private TeamName name;
     private String description;
     private List<? extends Player> players;
+    private TeamStats teamStats;
 
     public Team(TeamName name, String description, List<? extends Player> players) {
         this.name = name;
         this.description = description;
         this.players = players;
+        this.teamStats = new TeamStats();
     }
 
     public Team(TeamName name, String description) {
         this.name = name;
         this.description = description;
         this.players = new ArrayList<>();
+        this.teamStats = new TeamStats();
     }
 
     public Team(TeamName name) {
         this.name = name;
         this.players = new ArrayList<>();
         this.description = "";
+        this.teamStats = new TeamStats();
     }
 
     public TeamName getName() {

@@ -1,5 +1,6 @@
 package me.spf.teamworks.command;
 
+import me.spf.teamworks.constants.MapConstants;
 import me.spf.teamworks.team.TeamName;
 import me.spf.teamworks.Teamworks;
 import net.kyori.adventure.text.Component;
@@ -21,7 +22,7 @@ public class MyTeamCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
             TeamName teamName = plugin.getTeamManager().getPlayerTeam(player);
-            Component component = Component.text("You are on team: " + teamName).color(plugin.getTeamGUI().getTeamNameToColor()
+            Component component = Component.text("You are on team: " + teamName).color(MapConstants.getTeamNameToColor()
                     .get(teamName.toString()));
             player.sendMessage(component);
             return true;

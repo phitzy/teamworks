@@ -1,5 +1,6 @@
 package me.spf.teamworks.command;
 
+import me.spf.teamworks.constants.MapConstants;
 import me.spf.teamworks.team.TeamName;
 import me.spf.teamworks.Teamworks;
 import net.kyori.adventure.text.Component;
@@ -26,7 +27,7 @@ public class JoinTeamCommand implements CommandExecutor {
                 plugin.getTeamManager().assignTeam(player);
                 plugin.getLogger().info("Assigned team to player: " + player.getName());
                 Component component = Component.text("You have joined: " + plugin.getTeamManager().getPlayerTeam(player)).color(
-                        plugin.getTeamGUI().getTeamNameToColor().get(
+                        MapConstants.getTeamNameToColor().get(
                                 plugin.getTeamManager().getPlayerTeam(player).toString()
                         )
                 );
@@ -36,7 +37,7 @@ public class JoinTeamCommand implements CommandExecutor {
             plugin.getTeamManager().assignTeam(player, TeamName.valueOf(strings[0]));
             plugin.getLogger().fine("Assigned team to player: " + player.getName());
             Component component = Component.text("You have joined: " + plugin.getTeamManager().getPlayerTeam(player)).color(
-                    plugin.getTeamGUI().getTeamNameToColor().get(
+                    MapConstants.getTeamNameToColor().get(
                             plugin.getTeamManager().getPlayerTeam(player).toString()
                     )
             );
