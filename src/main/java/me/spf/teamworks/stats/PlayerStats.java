@@ -21,8 +21,8 @@ public class PlayerStats {
         this.player = player;
     }
 
-    public String getTeam() {
-        return team.toString();
+    public TeamName getTeam() {
+        return team;
     }
 
     public void setTeam(TeamName team) {

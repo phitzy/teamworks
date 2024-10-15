@@ -8,7 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class GSListener implements Listener {
+public final class GSListener implements Listener {
     private final GeneralStats stats;
 
     public GSListener(GeneralStats stats) {
@@ -23,17 +23,10 @@ public class GSListener implements Listener {
     }
 
     @EventHandler
-    public void onDeath(EntityDeathEvent event) {
-        if (event instanceof Player) {
-            stats.setTotalPlayerDeaths(stats.getTotalPlayerDeaths() + 1);
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (event.getEntity() instanceof Player) {
             return;
         }
         stats.setTotalEntityDeaths(stats.getTotalEntityDeaths() + 1);
     }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-
-    }
-
 }

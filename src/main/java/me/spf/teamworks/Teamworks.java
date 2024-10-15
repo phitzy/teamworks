@@ -7,9 +7,7 @@ import me.spf.teamworks.gui.TeamGUI;
 import me.spf.teamworks.invasion.cmd.InvitePlayerCommand;
 import me.spf.teamworks.invasion.cmd.ResponseCommand;
 import me.spf.teamworks.invasion.recipe.InvasionTokenRecipe;
-import me.spf.teamworks.listener.GSListener;
-import me.spf.teamworks.listener.PlayerListener;
-import me.spf.teamworks.listener.TeamListener;
+import me.spf.teamworks.listener.*;
 import me.spf.teamworks.managers.ContestManager;
 import me.spf.teamworks.managers.InvasionManager;
 import me.spf.teamworks.managers.TeamManager;
@@ -33,6 +31,7 @@ public final class Teamworks extends JavaPlugin {
     private TeamManager teamManager;
     private ContestManager contestManager;
     private InvasionManager invasionManager;
+
     private TeamGUI teamGUI;
 
     private File playerDataFile;
@@ -63,17 +62,17 @@ public final class Teamworks extends JavaPlugin {
         teamGUI = new TeamGUI(this);
 
         getLogger().info("Registering bossbars...");
-        new WinningTeamBar(this);
 
         GSListener gsListener = new GSListener(new GeneralStats());
         PlayerListener playerListener = new PlayerListener(this);
-        TeamListener teamListener = new TeamListener(this);
+        ContestListener contestListener = new ContestListener(this);
+        GUIListener guiListener = new GUIListener(this);
 
         // register listeners
         getLogger().info("Registering listeners....");
         Bukkit.getPluginManager().registerEvents(gsListener, this);
         Bukkit.getPluginManager().registerEvents(playerListener, this);
-        Bukkit.getPluginManager().registerEvents(teamListener, this);
+        Bukkit.getPluginManager().registerEvents(contestListener, this);
 
         getLogger().info("Registering commands....");
         InvitePlayerCommand invitePlayerCommand = new InvitePlayerCommand(this);
@@ -82,17 +81,23 @@ public final class Teamworks extends JavaPlugin {
         getCommand("deny").setExecutor(new ResponseCommand(this, invitePlayerCommand));
         getCommand("jointeam").setExecutor(new JoinTeamCommand(this));
         getCommand("leaveteam").setExecutor(new LeaveTeamCommand(this));
-        // getCommand("invade").setExecutor(new InvadeCommand(this));
-        // getCommand("teams").setExecutor(new TeamsCommand(this));
+        getCommand("invade").setExecutor(new InvadeCommand(this));
+        getCommand("teams").setExecutor(new TeamsCommand(this));
         getCommand("myteam").setExecutor(new MyTeamCommand(this));
         getCommand("group").setExecutor(new GroupCommand(this));
 
         getLogger().info("Registering recipes....");
         new InvasionTokenRecipe(this);
 
+        getLogger().info("Handling bossbars...");
+        contestManager.getWinningTeamBar().showForAll();
+
     }
 
     @Override
     public void onDisable() {
+        contestManager.getWinningTeamBar().hideForAll();
+        // save stats to files
+
     }
 }

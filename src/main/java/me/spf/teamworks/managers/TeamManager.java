@@ -20,6 +20,10 @@ public class TeamManager {
     private final Map<Player, PlayerStats> playerStats = new HashMap<>();
     private final List<TeamName> teams = List.of(TeamName.values());
 
+    private int numberOfPlayersOnRed;
+    private int numberOfPlayersOnBlue;
+    private int numberOfPlayersOnGreen;
+    private int numberOfPlayersOnYellow;
 
     public TeamManager(Teamworks plugin) {
         this.plugin = plugin;
@@ -31,6 +35,12 @@ public class TeamManager {
             teamName = TeamName.values()[new Random().nextInt(TeamName.values().length)];
         }
         assignTeam(player, teamName);
+        switch (teamName) {
+            case RED -> numberOfPlayersOnRed++;
+            case BLUE -> numberOfPlayersOnBlue++;
+            case GREEN -> numberOfPlayersOnGreen++;
+            case YELLOW -> numberOfPlayersOnYellow++;
+        }
     }
 
     public void assignTeam(Player player, TeamName teamName) {
@@ -56,6 +66,13 @@ public class TeamManager {
         stats.setTeam(TeamName.NONE);
         playerStats.replace(player, stats);
         playerTeams.replace(player, TeamName.NONE);
+
+        switch (stats.getTeam()) {
+            case RED -> numberOfPlayersOnRed--;
+            case BLUE -> numberOfPlayersOnBlue--;
+            case GREEN -> numberOfPlayersOnGreen--;
+            case YELLOW -> numberOfPlayersOnYellow--;
+        }
     }
 
     public List<TeamName> getTeams() {
@@ -86,4 +103,23 @@ public class TeamManager {
     public TeamName getPlayerTeam(Player player) {
         return playerTeams.get(player);
     }
+
+    public int getNumberOfPlayersOn(TeamName teamName) {
+        switch (teamName) {
+            case RED -> {
+                return numberOfPlayersOnRed;
+            }
+            case BLUE -> {
+                return numberOfPlayersOnBlue;
+            }
+            case GREEN -> {
+                return numberOfPlayersOnGreen;
+            }
+            case YELLOW -> {
+                return numberOfPlayersOnYellow;
+            }
+        }
+        return 0;
+    }
+
 }

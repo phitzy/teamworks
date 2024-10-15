@@ -23,7 +23,7 @@ public class GroupCommand implements CommandExecutor {
 
             InvadingGroup group = plugin.getTeamManager().getPlayerStats(player).getGroup();
             if (group == null) {
-                player.sendMessage(Component.text("You are not in a group!").color(NamedTextColor.YELLOW));
+                player.sendMessage(Component.text("You are not in a group!").color(NamedTextColor.RED));
                 return true;
             }
 

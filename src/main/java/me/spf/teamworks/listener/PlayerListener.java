@@ -1,5 +1,6 @@
 package me.spf.teamworks.listener;
 
+import me.spf.teamworks.event.WinningTeamChangeEvent;
 import me.spf.teamworks.team.TeamName;
 import me.spf.teamworks.Teamworks;
 import me.spf.teamworks.stats.PlayerStats;
@@ -12,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerListener implements Listener {
+public final class PlayerListener implements Listener {
     private final Teamworks plugin;
 
     public PlayerListener(Teamworks plugin) {
@@ -42,6 +43,11 @@ public class PlayerListener implements Listener {
         plugin.getContestManager().updateScore(oteam, plugin.getContestManager().getScore(team) + 1);
         plugin.getContestManager().updateScore(team, plugin.getContestManager().getScore(team) - 1);
 
+        if (plugin.getContestManager().getScore(oteam) > plugin.getContestManager().getScore(
+                plugin.getContestManager().getWinningTeam())) {
+            Bukkit.getPluginManager().callEvent(new WinningTeamChangeEvent(oteam, plugin.getContestManager().getWinningTeam()));
+        }
+
         // possibly show a killfeed?
         assert killer != null;
         Component kf = Component.text(killed.getName() + " has been slain by: "
@@ -53,14 +59,16 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
         if (!p.hasPlayedBefore()) {
-            p.sendMessage("Welcome to xxxxxxxx");
+            p.sendMessage("Welcome to Server");
             p.sendMessage(Component.text("You have been assigned to: "));
 
             plugin.getTeamManager().assignTeam(p);
-            p.sendMessage(Component.text(plugin.getTeamManager().getPlayerStats(p).getTeam()));
+            p.sendMessage(Component.text(plugin.getTeamManager().getPlayerStats(p).getTeam().toString()));
             Bukkit.broadcast(Component.text("Welcome new player: " + p.getName()));
+            plugin.getContestManager().getWinningTeamBar().showFor(p);
             return;
         }
         Bukkit.broadcast(Component.text("Welcome back " + p.getName()));
+        plugin.getContestManager().getWinningTeamBar().showFor(p);
     }
 }
