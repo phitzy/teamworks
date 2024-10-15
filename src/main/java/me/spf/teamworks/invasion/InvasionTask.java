@@ -40,8 +40,8 @@ public class InvasionTask extends BukkitRunnable {
             Location newLoc = targetLoc.clone().add(offsetX, 0, offsetZ);
             while (!isLocationSafe(newLoc)) {
                 newLoc = newLoc.clone().add(offsetX, 0, offsetZ);
+                newLoc.setY(targetLoc.getWorld().getHighestBlockYAt(newLoc));
             }
-            newLoc.setY(targetLoc.getWorld().getHighestBlockYAt(newLoc));
             p.teleport(newLoc);
             p.sendMessage(Component.text("You have invaded near: " + target.getName())
                     .color(NamedTextColor.LIGHT_PURPLE));
@@ -63,7 +63,8 @@ public class InvasionTask extends BukkitRunnable {
         // check to make sure test player is not on same team
         while (plugin.getTeamManager()
                 .getPlayerTeam(test)
-                .equals(plugin.getTeamManager().getPlayerTeam(group.getPlayers().getFirst()))) {
+                .equals(plugin.getTeamManager()
+                        .getPlayerTeam(group.getPlayers().getFirst()))) {
 
             test = rPlayer(playerList);
 

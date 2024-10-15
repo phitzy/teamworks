@@ -70,7 +70,7 @@ public final class Teamworks extends JavaPlugin {
         TeamListener teamListener = new TeamListener(this);
 
         // register listeners
-        this.getLogger().info("Registering listeners....");
+        getLogger().info("Registering listeners....");
         Bukkit.getPluginManager().registerEvents(gsListener, this);
         Bukkit.getPluginManager().registerEvents(playerListener, this);
         Bukkit.getPluginManager().registerEvents(teamListener, this);
