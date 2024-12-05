@@ -1,0 +1,33 @@
+name: teamworks
+version: '1.1'
+main: me.spf.teamworks.Teamworks
+api-version: '1.21.1'
+description: Teamworks test
+authors:
+  - Sean F
+commands:
+  invite:
+    aliases: [inv]
+    description: Invite player to group
+  accept:
+    description: Accept invite
+  deny:
+    description: Deny invite
+  jointeam:
+    aliases: [jteam, join]
+    description: Join a team of your choice or have it assigned for you
+    usage: /<join> <team>
+  leaveteam:
+    description: Leave current team.
+  invade:
+    description: Invade another world
+  lookup:
+    description: Lookup a players stats
+  teams:
+    description: View teams
+  myteam:
+    description: View your current team
+    aliases: [myteam]
+  group:
+    description: View your group
+
