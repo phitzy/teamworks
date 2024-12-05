@@ -2,6 +2,7 @@ package me.spf.teamworks.command;
 
 import me.spf.teamworks.Teamworks;
 import me.spf.teamworks.invasion.InvadingGroup;
+import me.spf.teamworks.stats.PlayerStats;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
@@ -21,7 +22,9 @@ public class GroupCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
 
-            InvadingGroup group = plugin.getTeamManager().getPlayerStats(player).getGroup();
+            PlayerStats stats = plugin.getTeamManager().getPlayerStats(player);
+            if (stats == null) return false;
+            InvadingGroup group = stats.getGroup();
             if (group == null) {
                 player.sendMessage(Component.text("You are not in a group!").color(NamedTextColor.RED));
                 return true;

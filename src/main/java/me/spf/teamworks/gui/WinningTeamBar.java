@@ -16,11 +16,10 @@ public class WinningTeamBar {
 
     public WinningTeamBar(Teamworks plugin) {
         this.plugin = plugin;
-        update();
     }
 
-    public void update() {
-        winningTeamName = plugin.getContestManager().getWinningTeam();
+    public void update(TeamName newWinning) {
+        winningTeamName = newWinning;
         Component component = Component.text("Winning team: " +
                 winningTeamName).color(
                 MapConstants.getTeamNameToColor().get(winningTeamName.toString())

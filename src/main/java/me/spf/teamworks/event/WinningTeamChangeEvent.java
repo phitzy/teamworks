@@ -1,11 +1,12 @@
 package me.spf.teamworks.event;
 
 import me.spf.teamworks.team.TeamName;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class WinningTeamChangeEvent extends Event {
+public class WinningTeamChangeEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private TeamName newWinningTeam;
@@ -28,7 +29,7 @@ public class WinningTeamChangeEvent extends Event {
         return HANDLERS;
     }
 
-    public HandlerList getHandlersList() {
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 

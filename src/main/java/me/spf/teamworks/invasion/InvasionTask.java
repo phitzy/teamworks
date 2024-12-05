@@ -57,6 +57,10 @@ public class InvasionTask extends BukkitRunnable {
 
     }
 
+    /**
+     * This method is so jank I want to kill myself
+     * @return Random online player of a different team
+     */
     private Player findRandomTargetPlayer() {
         List<Player> playerList = new ArrayList<>(Bukkit.getOnlinePlayers());
         Player test = rPlayer(playerList);
@@ -73,8 +77,8 @@ public class InvasionTask extends BukkitRunnable {
     }
 
     /**
-     * Get random player from online players list
-     * @param playerList online players
+     * Get random player from players list
+     * @param playerList online player
      * @return
      */
     private static Player rPlayer(List<Player> playerList) {
@@ -101,7 +105,6 @@ public class InvasionTask extends BukkitRunnable {
                     cancel();
                 } else {
                     timeLeft--;
-
                 }
             }
         }.runTaskTimer(plugin, 0, 20);

@@ -2,7 +2,6 @@ package me.spf.teamworks.listener;
 
 import me.spf.teamworks.Teamworks;
 import me.spf.teamworks.event.WinningTeamChangeEvent;
-import me.spf.teamworks.gui.WinningTeamBar;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -14,8 +13,8 @@ public final class ContestListener implements Listener {
     }
 
     @EventHandler
-    public void onWinningTeamChange(WinningTeamChangeEvent event) {
-        plugin.getContestManager().getWinningTeamBar().update();
+    public void onWinningTeamChangeEvent(WinningTeamChangeEvent event) {
+        plugin.getContestManager().getWinningTeamBar().update(event.getNewWinningTeam());
     }
 
 

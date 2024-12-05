@@ -12,7 +12,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +23,19 @@ public class TeamGUI {
 
     public TeamGUI(Teamworks plugin) {
         this.plugin = plugin;
-        this.gui = Bukkit.createInventory(null, 4,
+        this.gui = Bukkit.createInventory(null, 9,
                 Component.text("Teams")
                         .color(NamedTextColor.AQUA).toString());
         create();
     }
 
     private void create() {
+        int index = 3;
         for (TeamName team : plugin.getTeamManager().getTeams()) {
             if (team.equals(TeamName.NONE)) continue;
             ItemStack teamItem = new ItemStack(MapConstants.teamNameToBlockIcon.get(team.toString()));
             ItemMeta meta = teamItem.getItemMeta();
-            Component displayName =
-                    Component.text(team.toString()).color(MapConstants.teamNameToColor.get(team.toString()));
-            meta.setDisplayName(displayName.toString());
+            meta.setDisplayName(team.toString());
 
             int teamScore = plugin.getContestManager().getScore(team);
             List<String> lore = new ArrayList<>(List.of(
@@ -52,7 +50,8 @@ public class TeamGUI {
             meta.setLore(lore.stream().map(Object::toString)
                     .collect(Collectors.toList()));
             teamItem.setItemMeta(meta);
-            gui.addItem(teamItem);
+            gui.setItem(index, teamItem);
+            index++;
         }
     }
 

@@ -2,16 +2,18 @@ package me.spf.teamworks.managers;
 
 import me.spf.teamworks.Teamworks;
 import me.spf.teamworks.invasion.InvadingGroup;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InvasionManager {
 
+    public static final @NotNull String INVASION_TOKEN = "Invasion Token";
     private final Teamworks plugin;
 
-    public List<InvadingGroup> activeGroups;
-    public List<InvadingGroup> invadingGroups;
+    public final List<InvadingGroup> activeGroups; // all created groups
+    public final List<InvadingGroup> invadingGroups; // currently invading groups
 
     public InvasionManager(Teamworks plugin) {
         this.plugin = plugin;

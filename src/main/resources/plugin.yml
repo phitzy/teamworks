@@ -16,7 +16,7 @@ commands:
   jointeam:
     aliases: [jteam, join]
     description: Join a team of your choice or have it assigned for you
-    usage: /<join> <team>
+    usage: /<join> [<team> - optional]
   leaveteam:
     description: Leave current team.
   invade:

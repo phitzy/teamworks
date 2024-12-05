@@ -4,9 +4,12 @@ import me.spf.teamworks.team.TeamName;
 import me.spf.teamworks.invasion.InvadingGroup;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class PlayerStats {
 
     private final Player player;
+    private final UUID uuid;
     private TeamName team;
     private int score;
     private int numberOfInvasions;
@@ -19,6 +22,13 @@ public class PlayerStats {
 
     public PlayerStats(Player player) {
         this.player = player;
+        score = 0;
+        numberOfInvasions = 0;
+        kills = 0;
+        deaths = 0;
+        xp = 0;
+        money = 0;
+        uuid = player.getUniqueId();
     }
 
     public TeamName getTeam() {
@@ -88,5 +98,17 @@ public class PlayerStats {
 
     public boolean inGroup() {
         return group != null && !group.getPlayers().isEmpty();
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

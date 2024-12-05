@@ -50,6 +50,11 @@ public class InvadingGroup {
         this.players = players;
     }
 
+    /**
+     * Method to assert players from different teams cannot group up
+     * @param players given list of players
+     * @return
+     */
     public boolean validGroup(List<Player> players) {
         boolean flag = true;
         for (int i = 0; i < players.size(); i++) {
@@ -64,6 +69,11 @@ public class InvadingGroup {
         return flag;
     }
 
+    /**
+     *
+     * @return team in TeamName format
+     * @see TeamName
+     */
     public TeamName getTeam() {
         return team;
     }

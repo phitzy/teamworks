@@ -22,6 +22,11 @@ public class JoinTeamCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
 
+            if (plugin.getTeamManager().getPlayerTeam(player) != TeamName.NONE) {
+                player.sendMessage("You are already on a team!");
+                return false;
+            }
+
             if (strings.length == 0) {
 
                 plugin.getTeamManager().assignTeam(player);
@@ -34,7 +39,7 @@ public class JoinTeamCommand implements CommandExecutor {
                 player.sendMessage(component);
                 return true;
             }
-            plugin.getTeamManager().assignTeam(player, TeamName.valueOf(strings[0]));
+            plugin.getTeamManager().assignTeam(player, TeamName.valueOf(strings[0].toUpperCase()));
             plugin.getLogger().fine("Assigned team to player: " + player.getName());
             Component component = Component.text("You have joined: " + plugin.getTeamManager().getPlayerTeam(player)).color(
                     MapConstants.getTeamNameToColor().get(

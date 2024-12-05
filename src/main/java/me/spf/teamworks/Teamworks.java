@@ -21,6 +21,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public final class Teamworks extends JavaPlugin {
         return teamManager;
     }
 
-    public ContestManager getContestManager() {
+    public @NotNull ContestManager getContestManager() {
         return contestManager;
     }
 
@@ -56,12 +57,10 @@ public final class Teamworks extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Registering managers... ");
-        teamManager = new TeamManager(this);
         contestManager = new ContestManager(this);
+        teamManager = new TeamManager(this);
         invasionManager = new InvasionManager(this);
         teamGUI = new TeamGUI(this);
-
-        getLogger().info("Registering bossbars...");
 
         GSListener gsListener = new GSListener(new GeneralStats());
         PlayerListener playerListener = new PlayerListener(this);
@@ -73,6 +72,7 @@ public final class Teamworks extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(gsListener, this);
         Bukkit.getPluginManager().registerEvents(playerListener, this);
         Bukkit.getPluginManager().registerEvents(contestListener, this);
+        Bukkit.getPluginManager().registerEvents(guiListener, this);
 
         getLogger().info("Registering commands....");
         InvitePlayerCommand invitePlayerCommand = new InvitePlayerCommand(this);
@@ -85,19 +85,15 @@ public final class Teamworks extends JavaPlugin {
         getCommand("teams").setExecutor(new TeamsCommand(this));
         getCommand("myteam").setExecutor(new MyTeamCommand(this));
         getCommand("group").setExecutor(new GroupCommand(this));
+        getCommand("lookup").setExecutor(new PlayerLookupCommand(this));
 
         getLogger().info("Registering recipes....");
         new InvasionTokenRecipe(this);
 
         getLogger().info("Handling bossbars...");
-        contestManager.getWinningTeamBar().showForAll();
-
     }
 
     @Override
     public void onDisable() {
-        contestManager.getWinningTeamBar().hideForAll();
-        // save stats to files
-
     }
 }

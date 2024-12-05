@@ -24,7 +24,7 @@ public class InvadeCommand implements CommandExecutor {
                              @NotNull String[] strings) {
         if (commandSender instanceof Player invader) {
             if (strings.length != 1) {
-                invader.sendMessage("Usage: /<invade> <team>");
+                invader.sendMessage("Usage: /invade <team>");
                 return false;
             }
             InvadingGroup group = plugin.getTeamManager().getPlayerStats(invader).getGroup();

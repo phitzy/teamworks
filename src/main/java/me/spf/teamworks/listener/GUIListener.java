@@ -30,10 +30,22 @@ public final class GUIListener implements Listener {
         if (event.getClickedInventory().getType() == InventoryType.PLAYER) return;
 
         switch (event.getSlot()) {
-            case 0 -> plugin.getTeamManager().assignTeam(p, TeamName.RED);
-            case 1 -> plugin.getTeamManager().assignTeam(p, TeamName.BLUE);
-            case 2 -> plugin.getTeamManager().assignTeam(p, TeamName.GREEN);
-            case 3 -> plugin.getTeamManager().assignTeam(p, TeamName.YELLOW);
+            case 0 -> {
+                plugin.getTeamManager().assignTeam(p, TeamName.RED);
+                p.sendMessage(Component.text("You have joined team: " + TeamName.RED));
+            }
+            case 1 -> {
+                plugin.getTeamManager().assignTeam(p, TeamName.BLUE);
+                p.sendMessage(Component.text("You have joined team: " + TeamName.BLUE));
+            }
+            case 2 -> {
+                plugin.getTeamManager().assignTeam(p, TeamName.GREEN);
+                p.sendMessage(Component.text("You have joined team: " + TeamName.GREEN));
+            }
+            case 3 -> {
+                plugin.getTeamManager().assignTeam(p, TeamName.YELLOW);
+                p.sendMessage(Component.text("You have joined team: " + TeamName.BLUE));
+            }
         }
 
     }

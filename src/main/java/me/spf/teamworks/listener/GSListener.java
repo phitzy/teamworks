@@ -8,6 +8,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+/**
+ * General Stats listener class
+ */
 public final class GSListener implements Listener {
     private final GeneralStats stats;
 
@@ -22,6 +25,10 @@ public final class GSListener implements Listener {
         );
     }
 
+    /**
+     * Handle non player related incidents.
+     * @param event
+     */
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {

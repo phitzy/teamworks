@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
-    private TeamName name;
+    private final TeamName name;
     private String description;
     private List<? extends Player> players;
     private TeamStats teamStats;
